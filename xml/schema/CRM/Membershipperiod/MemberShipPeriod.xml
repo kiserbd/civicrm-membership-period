@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Membershipperiod</base>
+  <class>MemberShipPeriod</class>
+  <name>civicrm_membership_period</name>
+  <comment>Membership period log table</comment>
+  <add>4.7</add>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique MemberShipPeriod ID</comment>
+    <add>4.7</add>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>start_date</name>
+    <type>date</type>
+    <comment>Membership start date</comment>
+    <add>4.7</add>
+  </field>
+  
+  <field>
+    <name>end_date</name>
+    <type>date</type>
+    <comment>Membership end date</comment>
+    <add>4.7</add>
+  </field>
+  
+  <field>
+    <name>membership_id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>FOREIGN KEY of Membership</comment>
+    <add>4.4</add>
+  </field>
+  
+  <foreignKey>
+    <name>membership_id</name>
+    <table>civicrm_membership</table>
+    <key>id</key>
+    <add>4.7</add>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+  
+  <field>
+    <name>contribution_id</name>
+    <type>int unsigned</type>
+    <comment>FOREIGN KEY of Contribution</comment>
+    <add>4.4</add>
+  </field>
+  <foreignKey>
+    <name>contribution_id</name>
+    <table>civicrm_contribution</table>
+    <key>id</key>
+    <add>4.4</add>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+</table>
