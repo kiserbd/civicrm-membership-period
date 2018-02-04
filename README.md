@@ -22,7 +22,7 @@ install it with the command-line tool [cv](https://github.com/civicrm/cv).
 
 ```bash
 cd <extension-dir>
-cv dl uk.co.compucorp.membershipperiod@https://github.com/FIXME/uk.co.compucorp.membershipperiod/archive/master.zip
+cv dl civicrm-membership-period@https://github.com/kiserbd/civicrm-membership-period/archive/master.zip
 ```
 
 ## Installation (CLI, Git)
