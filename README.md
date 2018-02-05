@@ -2,7 +2,7 @@
 
 # civicrm-membership-period
 
-##Issue
+## Issue
 
 Currently, when a membership is renewed in CiviCRM the “end date” field on the membership itself is extended by the length of the membership as defined in CiviCRM membership type configuration but no record of the actual length of any one period or term is recorded. As such it is not possible to see how many “terms” or “periods” of membership a contact may have had. 
 
