@@ -2,26 +2,27 @@
 <extension key="civicrm-membership-period" type="module">
   <file>membershipperiod</file>
   <name>FIXME</name>
-  <description>FIXME</description>
+  <description>Standalone civicrm extension to store membership period records</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Abdullah Kiser</author>
     <email>kiser.bd@gmail.com</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">http://FIXME</url>
-    <url desc="Documentation">http://FIXME</url>
-    <url desc="Support">http://FIXME</url>
+    <url desc="Main Extension Page">https://github.com/kiserbd/civicrm-membership-period</url>
+    <url desc="Documentation">https://github.com/kiserbd/civicrm-membership-period/blob/master/README.md</url>
+    <url desc="Support">https://github.com/kiserbd/civicrm-membership-period/issues</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
-  <releaseDate>2018-01-21</releaseDate>
+  <releaseDate>2018-02-05</releaseDate>
   <version>1.0</version>
   <develStage>alpha</develStage>
   <compatibility>
     <ver>4.7</ver>
   </compatibility>
-  <comments>This is a new, undeveloped module</comments>
+  <comments>This is MembershipPeriod extension to keep records of membership add/renew periods.</comments>
   <civix>
     <namespace>CRM/Membershipperiod</namespace>
   </civix>
 </extension>
+
