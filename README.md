@@ -1,4 +1,4 @@
-##This extension is created as a test for Compucorp application process and is not ready for production deployment
+## This extension is created as a test for Compucorp application process and is not ready for production deployment
 
 # civicrm-membership-period
 
@@ -16,7 +16,7 @@ The aim of this extension is to extend the CiviCRM membership component so that 
 
 The membership period should be connected to a contribution record if a payment is taken for this membership or renewal.
 
-##User's guide 
+## User's guide 
 
 After installation [extension installation
 documentation](https://docs.civicrm.org/user/en/latest/introduction/extensions/#installing-extensions) this extention on your `civicrm` instance, it will automatically log the membership period record with every create/renew of membership.
@@ -31,24 +31,26 @@ It will expand and can get the `Membership Period` menu to get membership period
 the contribution if have any. And can open it by click it's view.  
 
 
-##Developer's guide
+## Developer's guide
 
-#New Entity
+# New Entity
 
 With the installation it will create a new DB table called `civicrm_membership_period` to store membership period records. 
 It will `DROP` the table with uninstall the extension.
 
-#Implementing civicrm `hooks`
+# Implementing civicrm `hooks`
 
 Here we have implemented civicrm post hook [hook_civicrm_post](https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_post/) to store
 membership period records with add/renew the membership as well membership payment.
 
-#Implementing BAO
+Another hook called [hook_civicrm_links] (https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_links/) also implemented here to alter the link to view the membership period per membership
+
+# Implementing BAO
 
 We have membershipperiod BAO class `MemberShipPeriod`and it's  helper class `MemberShipPeriodHelper`. Those two classes are responsible
 to manage and validate membership period add/update automatically along with add/renew membership and membership payment with the help of hook_civicrm_post hook.
 
-#CIVICRM API
+# CIVICRM API
 
 The following are usage of some of the API interaction endpoints available for the 
 Membership Period extension.
