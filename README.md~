@@ -90,9 +90,6 @@ For full details of other options, refer to [the CiviCRM API](https://docs.civic
 
 **NOTE:**
 >No need to call membership period `create` endpoint. As all period records store automatically along with membership add/renew.
+## Known Issues
 
-## Authors
-- [Abdullah Kiser]
-
-## License
-The extension is licensed under [AGPL-3.0](LICENSE.txt)
+(* FIXME *)

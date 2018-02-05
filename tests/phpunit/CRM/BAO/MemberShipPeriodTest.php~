@@ -91,49 +91,35 @@ protected $membershipPeriodParams = [
 ];
 
 
-/**
- * Create mock contact
- * @return type
- */
+
 protected function setupContact()
 {
     $mockedContact = \CRM_Core_DAO::createTestObject('CRM_Contact_DAO_Contact', $this->mockedContactParams);
     return $mockedContact;
 }
 
-/**
- * Create mock membership type
- * @return type
- */
 protected function setupMembershipType()
 {
     $mockedMembershipType = \CRM_Core_DAO::createTestObject('CRM_Member_BAO_MembershipType', $this->mockedMembershipTypeParams);
     return $mockedMembershipType;
 }
 
-/**
- * Create mock membership
- * @param type $startDate
- * @param type $endDate
- * @return type
- */
 protected function setupMembership($startDate = '2017-01-21', $endDate = '2017-12-21')
 {
-    $this->mockedMembershipParams["contact_id"] = $this->mockedContact->id;
+    $contact = $this->setupContact();
+    $membershipType = $this->setupMembershipType();
+
+    $this->mockedMembershipParams["contact_id"] = $contact->id;
     $this->mockedMembershipParams["join_date"] = date('Ymd', strtotime('2017-01-21'));
     $this->mockedMembershipParams["start_date"] = date('Ymd', strtotime($startDate));
     $this->mockedMembershipParams["end_date"] = date('Ymd', strtotime($endDate));
-    $this->mockedMembershipParams["membership_type_id"] = $this->mockedMembershipTypeId;
+    $this->mockedMembershipParams["membership_type_id"] = $membershipType->id;
 
     $mockedMembership = \CRM_Core_DAO::createTestObject('CRM_Member_DAO_Membership', $this->mockedMembershipParams);
 
     return $mockedMembership;
 }
 
-/**
- * Update mock membership
- * @return type
- */
 protected function updateMembership()
 {
     $mockedMembership = \CRM_Core_DAO::createTestObject('CRM_Member_DAO_Membership', $this->mockedMembershipParams);
@@ -142,11 +128,6 @@ protected function updateMembership()
     return $mockedMembership;
 }
 
-/**
- * Create mock membership period
- * @param type $contributionId
- * @return type
- */
 protected function setupMembershipPeriod($contributionId = null)
 {
     $this->membershipPeriodParams["membership_id"] = $this->mockedMembership->id;
@@ -159,10 +140,7 @@ protected function setupMembershipPeriod($contributionId = null)
     return $this->membershipPeriodParams;
 }
 
-/**
- * Create mock contribution
- * @return type
- */
+
 protected function setupContribution()
 {
     $this->mockedContributionParams['contact_id'] = $this->mockedContact->id;
@@ -173,12 +151,6 @@ protected function setupContribution()
     return $mockedContribution;
 }
 
-/**
- *  Create membership payment
- * @param type $membershipId
- * @param type $contributionId
- * @return type
- */
 private function createPayment($membershipId, $contributionId) {
     $this->membershipPaymentParams['membership_id'] = $membershipId;
     $this->membershipPaymentParams['contribution_id'] = $contributionId;
@@ -188,11 +160,6 @@ private function createPayment($membershipId, $contributionId) {
     return $mockedMembershipPayment;
 }
 
-/**
- * Fetch the latest membership period of a membership
- * @param type $membershipId
- * @return type
- */
 private static function getLatestMembershipPeriod($membershipId)
 {
     $membershipPeriod = civicrm_api3('MemberShipPeriod', 'get', [
@@ -205,19 +172,19 @@ private static function getLatestMembershipPeriod($membershipId)
 }
 
 /**
-* Calculate the next date based on interval, unit and date
-*
-* @param $unit
-* @param $interval
-* @param $startDate
-* @return DateTime|false
-*/
-private function getDateInterval($unit, $interval, $startDate) {
-   $interval = $interval . ' ' . $unit;
-   $date = date_create($startDate);
-   $newEndDate = date_add($date, date_interval_create_from_date_string($interval));
-   return $newEndDate;
-}
+     * Calculate the next date based on interval, unit and date
+     *
+     * @param $unit
+     * @param $interval
+     * @param $startDate
+     * @return DateTime|false
+     */
+    private function getDateInterval($unit, $interval, $startDate) {
+        $interval = $interval . ' ' . $unit;
+        $date = date_create($startDate);
+        $newEndDate = date_add($date, date_interval_create_from_date_string($interval));
+        return $newEndDate;
+    }
 
 public function setUpHeadless() {
     // Civi\Test has many helpers, like install(), uninstall(), sql(), and sqlFile().
@@ -228,12 +195,17 @@ public function setUpHeadless() {
   }
 
   public function setUp() {
-    $mockedContact = $this->setupContact();
+    $mockedContact = \CRM_Core_DAO::createTestObject('CRM_Contact_DAO_Contact', $this->mockedContactParams);
     $this->mockedContact = $mockedContact;
-    $mockedMembershipType = $this->setupMembershipType();
-    $this->mockedMembershipTypeId = $mockedMembershipType->id;
-    $mockedMembership = $this->setupMembership();
+    $mockedMembershipType = \CRM_Core_DAO::createTestObject('CRM_Member_BAO_MembershipType', $this->mockedMembershipTypeParams);
     
+    $this->mockedMembershipTypeId = $mockedMembershipType->id;
+    $this->mockedMembershipParams["contact_id"] = $mockedContact->id;
+    $this->mockedMembershipParams["join_date"] = date('Ymd', strtotime('2017-01-21'));
+    $this->mockedMembershipParams["start_date"] = date('Ymd', strtotime('2017-01-21'));
+    $this->mockedMembershipParams["end_date"] = date('Ymd', strtotime('2017-12-21'));
+    $this->mockedMembershipParams["membership_type_id"] = $mockedMembershipType->id;
+    $mockedMembership = \CRM_Core_DAO::createTestObject('CRM_Member_DAO_Membership', $this->mockedMembershipParams);
     $this->mockedMembership = $mockedMembership;  
     parent::setUp();
   }
@@ -242,63 +214,52 @@ public function setUpHeadless() {
     parent::tearDown();
   }  
 
-/**
-   * This method will process and validate membership data to add/update membership period
-   * 
-   * @param type $objectRef
-   * @param type $objectId
-   * @param type $op
-   * @return type
-   * @throws Exception
-   */
-  private static function validateMembershipData($startDate, $endDate)
-  {
-      $startDate = new DateTime($startDate);
-      $endDate = new DateTime($endDate);
-      $dateDifference = $startDate->diff($endDate);
-
-      if ($dateDifference->format('%R%a') < 0) {
-          throw new Exception(ts("End date must be the greater or equal than start date."));
-          return;
-      }
-
-      $params = [
-          "membership_id"     => $this->mockedMembership->id,
-          "start_date"        => $startDate,
-          "end_date"          => $endDate,            
-      ];
-      return $params;
-  }
-  
   /**
-   * Test membership period with valid data.
-   */
+     * This method will process and validate membership data to add/update membership period
+     * 
+     * @param type $objectRef
+     * @param type $objectId
+     * @param type $op
+     * @return type
+     * @throws Exception
+     */
+    private static function validateMembershipData($startDate, $endDate)
+    {
+        $startDate = new DateTime($startDate);
+        $endDate = new DateTime($endDate);
+        $dateDifference = $startDate->diff($endDate);
+
+        if ($dateDifference->format('%R%a') < 0) {
+            throw new Exception(ts("End date must be the greater or equal than start date."));
+            return;
+        }
+        
+        $params = [
+            "membership_id"     => $this->mockedMembership->id,
+            "start_date"        => $startDate,
+            "end_date"          => $endDate,            
+        ];
+        return $params;
+    }
+  
   public function testCreateMembershipPeriodWithValidData()
-  { 
-    //Call the BAL method to manage membershipperiod
+  {          
     $membershipPeriod = CRM_Membershipperiod_BAO_MemberShipPeriod::manageMembershipPeriod('create', 'Membership', $this->mockedMembership->id, $this->mockedMembership);
     $this->assertObjectHasAttribute('id', $membershipPeriod);
    
   }
   
-  /**
-   * Test the exception with invalid membership data to create membership period
-   */
   public function testCreateMembershipPeriodWithInvalidData()
   {
       try{
           $membership = $this->setupMembership('2017-01-21', '2017-01-20');
-          //Call the BAL method to manage membershipperiod
-          CRM_Membershipperiod_BAO_MemberShipPeriod::manageMembershipPeriod('create', 'Membership', $membership->id, $membership);
+          $membershipPeriod = CRM_Membershipperiod_BAO_MemberShipPeriod::manageMembershipPeriod('create', 'Membership', $membership->id, $membership);
           
       }catch (Exception $e) {
           $this->assertEquals($e->getMessage(), 'End date must be the greater or equal than start date.');
       }
   }
   
-  /**
-   * Test membership period with contibution data.
-   */
   public function testCreateMembershipPeriodWithContribution()
   {
       $contribution = $this->setupContribution();
@@ -314,9 +275,6 @@ public function setUpHeadless() {
       
   }
   
-  /**
-   * Test update membership period when membership data renew.
-   */
   public function testUpdateMembershipPeriod()
   {
       $membership = $this->mockedMembership;
@@ -343,4 +301,8 @@ public function setUpHeadless() {
       $this->assertEquals($newEndDate, $latestMembershipPeriod["values"][0]["end_date"]);
   }
   
+  public function testLifetimeMembership()
+  {
+      
+  }
 }
