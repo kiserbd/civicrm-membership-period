@@ -74,7 +74,7 @@ $result = civicrm_api3('MemberShipPeriod', 'get', array(
 ```text
 REST:
 
-http://dev.local.civicrm/sites/all/modules/civicrm/extern/rest.php?entity=MemberShipPeriod&action=create&api_key=userkey&key=sitekey&json={"sequential":1,"start_date":"2017-01-01","end_date":"2019-12-01","membership_id":22}
+http://example.com/sites/all/modules/civicrm/extern/rest.php?entity=MemberShipPeriod&action=create&api_key=userkey&key=sitekey&json={"sequential":1,"start_date":"2017-01-01","end_date":"2019-12-01","membership_id":22}
 ```
 
 ```php
