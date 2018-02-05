@@ -43,14 +43,14 @@ It will `DROP` the table with uninstall the extension.
 Here we have implemented civicrm post hook [hook_civicrm_post](https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_post/) to store
 membership period records with add/renew the membership as well membership payment.
 
-Another hook called [hook_civicrm_links] (https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_links/) also implemented here to alter the link to view the membership period per membership
+Another hook called [hook_civicrm_links](https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_links/) also implemented here to alter the link to view the membership period per membership
 
 ## Implementing BAO
 
 We have membershipperiod BAO class `MemberShipPeriod`and it's  helper class `MemberShipPeriodHelper`. Those two classes are responsible
 to manage and validate membership period add/update automatically along with add/renew membership and membership payment with the help of hook_civicrm_post hook.
 
-## CIVICRM API
+## civicrm API
 
 The following are usage of some of the API interaction endpoints available for the 
 Membership Period extension.
