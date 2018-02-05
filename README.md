@@ -2,7 +2,7 @@
 
 # civicrm-membership-period
 
-## Issue
+# Issue
 
 Currently, when a membership is renewed in CiviCRM the “end date” field on the membership itself is extended by the length of the membership as defined in CiviCRM membership type configuration but no record of the actual length of any one period or term is recorded. As such it is not possible to see how many “terms” or “periods” of membership a contact may have had. 
 
@@ -16,7 +16,7 @@ The aim of this extension is to extend the CiviCRM membership component so that 
 
 The membership period should be connected to a contribution record if a payment is taken for this membership or renewal.
 
-## User's guide 
+# User's guide 
 
 After installation [extension installation
 documentation](https://docs.civicrm.org/user/en/latest/introduction/extensions/#installing-extensions) this extention on your `civicrm` instance, it will automatically log the membership period record with every create/renew of membership.
