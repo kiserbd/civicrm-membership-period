@@ -1,5 +1,3 @@
-## This extension is created as a test for Compucorp application process and is not ready for production deployment
-
 # civicrm-membership-period
 
 # Issue
